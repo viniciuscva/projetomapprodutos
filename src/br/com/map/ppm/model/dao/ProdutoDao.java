@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -89,6 +87,10 @@ public class ProdutoDao {
                         ("delete from tbproduto where codigo=?");
             pst.setInt(1, prod.getCodigo());
             pst.executeUpdate();
+            PreparedStatement pst2 = conexao.prepareStatement
+                    ("delete from tbespecificacao where codigo=?");
+            pst2.setInt(1, prod.getEspecificacao().getCodigo());
+            pst2.executeUpdate();
             System.out.println("OK.");
         } catch (SQLException ex) {
             System.out.println("Erro ao deletar produto do banco de dados.");
