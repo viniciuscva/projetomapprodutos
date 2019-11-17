@@ -26,6 +26,14 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             comboBoxEspecificacao.addItem(e.toString());
         }
         TableModel modeloTabela = jTableProdutos.getModel();
+        int numeroLinhas = modeloTabela.getRowCount();
+        for(int i=0; i< numeroLinhas; i++){
+            modeloTabela.setValueAt("", i, 0);
+            modeloTabela.setValueAt("", i, 1);
+            modeloTabela.setValueAt("", i, 2);
+            modeloTabela.setValueAt("", i, 3);
+        }
+        
         List<Produto> lista = new ProdutoDao().obterProdutos();
         for (int i = 0; i < lista.size(); i++) {
             modeloTabela.setValueAt(lista.get(i).getCodigo(), i, 0);
@@ -106,6 +114,11 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         buttonEditar.setText("editar");
 
         buttonRemover.setText("remover");
+        buttonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -215,6 +228,16 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         recarregar();
         
     }//GEN-LAST:event_buttonCadastrarActionPerformed
+
+    private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverActionPerformed
+        // TODO add your handling code here:
+        TableModel modeloTabela = jTableProdutos.getModel();
+        int linhaSelecionada = jTableProdutos.getSelectedRow();
+        int codigo = (Integer)modeloTabela.getValueAt(linhaSelecionada, 0);
+        System.out.println("olha eu");
+        new ProdutoDao().removerPorCodigo(codigo);
+        recarregar();
+    }//GEN-LAST:event_buttonRemoverActionPerformed
 
     /**
      * @param args the command line arguments

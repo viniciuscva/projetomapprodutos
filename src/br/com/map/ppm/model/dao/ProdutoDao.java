@@ -97,6 +97,30 @@ public class ProdutoDao {
         }
     }
     
+    public void removerPorCodigo(int codigo){
+        Connection conexao = ConnectionFactory.getConnection();
+        int codigoEspecificacao = -1;
+        try {
+            PreparedStatement pst = conexao.prepareStatement
+                        ("select especificacao from tbproduto where codigo=?");
+            pst.setInt(1, codigo);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                codigoEspecificacao = rs.getInt("especificacao");
+            }
+            PreparedStatement pst2 = conexao.prepareStatement
+                    ("delete from tbproduto where codigo=?");
+            pst2.setInt(1, codigo);
+            pst2.executeUpdate();
+            PreparedStatement pst3 = conexao.prepareStatement
+                    ("delete from tbespecificacao where codigo=?");
+            pst3.setInt(1, codigoEspecificacao);
+            pst3.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao deletar produto do banco de dados.");
+        }
+    }
+    
     public Produto consultarProduto(int codigo){
         Connection conexao = ConnectionFactory.getConnection();
         Produto produto = new Produto();
