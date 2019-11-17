@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -65,5 +67,26 @@ public class EspecificacaoDao {
         return esp;
     }
     
+    public List<Especificacao> obterEspecificacoes(){
+        List<Especificacao> lista = new ArrayList<>();
+        Connection conexao = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement pst = conexao.
+                    prepareStatement("select * from tbespecificacao");
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Especificacao esp = new Especificacao();
+                esp.setCodigo(rs.getInt("codigo"));
+                esp.setFabricante(rs.getString("fabricante"));
+                esp.setCor(rs.getString("cor"));
+                esp.setSistema(rs.getString("sistema"));
+                esp.setDetalhes(rs.getString("detalhes"));
+                lista.add(esp);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao buscar lista de produtos no banco de dados.");
+        }
+        return lista;
+    }
     
 }

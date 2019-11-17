@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ProjetoProdutosMapMain {
 
     
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         List<Produto> listaProdutos = new ProdutoDao().obterProdutos();
         char opcao;
@@ -71,5 +71,5 @@ public class ProjetoProdutosMapMain {
         }
         return null;
     }
-    
+    */
 }

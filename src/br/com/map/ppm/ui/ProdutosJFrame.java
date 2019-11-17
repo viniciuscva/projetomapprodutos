@@ -1,6 +1,8 @@
 package br.com.map.ppm.ui;
 
+import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.bean.Produto;
+import br.com.map.ppm.model.dao.EspecificacaoDao;
 import br.com.map.ppm.model.dao.ProdutoDao;
 import java.util.List;
 import javax.swing.table.TableModel;
@@ -9,12 +11,19 @@ public class ProdutosJFrame extends javax.swing.JFrame {
 
     public ProdutosJFrame() {
         initComponents();
+        recarregar();
     }
 
     public void recarregar() {
         txtFieldCodigo.setText("");
         txtFieldNome.setText("");
         txtFieldPreco.setText("");
+        comboBoxEspecificacao.removeAllItems();
+        List<Especificacao> especificacoes = new EspecificacaoDao().obterEspecificacoes();
+        comboBoxEspecificacao.addItem(" ");
+        for(Especificacao e: especificacoes){
+            comboBoxEspecificacao.addItem(e.toString());
+        }
         TableModel modeloTabela = jTableProdutos.getModel();
         List<Produto> lista = new ProdutoDao().obterProdutos();
         for (int i = 0; i < lista.size(); i++) {
@@ -113,10 +122,9 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                             .addComponent(txtFieldPreco)
                             .addComponent(txtFieldNome)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboBoxEspecificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonNovaEspecificacao)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(comboBoxEspecificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addComponent(buttonNovaEspecificacao))
                             .addComponent(txtFieldCodigo))
                         .addGap(83, 83, 83))
                     .addGroup(layout.createSequentialGroup()
@@ -132,7 +140,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(239, 239, 239)
                         .addComponent(jLabel1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
