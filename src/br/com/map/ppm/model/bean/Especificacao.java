@@ -58,9 +58,9 @@ public class Especificacao {
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("{cód:").append(codigo).append(", fabric:").append(fabricante)
-                .append(", cor:").append(cor).append(", sistema:").append(sistema)
-                .append(", detalhes:").append(detalhes).append("}");
+        sb.append(codigo).append(" | ").append(fabricante)
+                .append(" | ").append(cor).append(" | ").append(sistema)
+                .append(" | ").append(detalhes);
         return sb.toString();
     }
     
