@@ -3,6 +3,7 @@ package br.com.map.ppm.ui;
 
 import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
+import javax.swing.JOptionPane;
 
 
 public class EspecificacaoJFrame extends javax.swing.JFrame {
@@ -48,6 +49,8 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         jLabel5.setText("sistema");
 
         jLabel6.setText("detalhes");
+
+        txtFieldCodigo.setEditable(false);
 
         buttonConfirmar.setText("confirmar");
         buttonConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +133,11 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarActionPerformed
+        if(txtFieldCor.getText().equals("")||txtFieldDetalhes.getText().equals("")||
+                txtFieldFabricante.getText().equals("")||txtFieldSistema.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Campos vazios", "Atenção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         Especificacao esp = new Especificacao();
         esp.setFabricante(txtFieldFabricante.getText());
         esp.setCor(txtFieldCor.getText());
