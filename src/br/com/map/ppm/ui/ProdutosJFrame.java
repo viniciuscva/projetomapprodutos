@@ -4,6 +4,7 @@ import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.bean.Produto;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
 import br.com.map.ppm.model.dao.ProdutoDao;
+import br.com.map.ppm.util.MensagensUtil;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -54,19 +55,27 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         }
     }
     
-    public void atualizarStringsNoIdioma(){
-        
+    public void preencherStringsNoIdioma(){
+        labelPrincipal.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_PRINCIPAL));
+        labelCodigo.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_CODIGO));
+        labelNome.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_NOME));
+        labelPreco.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_PRECO));
+        labelEspecificacao.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_ESPECIFICACAO));
+        buttonNovaEspecificacao.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_CRIARESPECIFICACAO));
+        buttonSalvar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_SALVAR));
+        buttonEditar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_EDITAR));
+        buttonRemover.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_REMOVER));
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        labelPrincipal = new javax.swing.JLabel();
+        labelCodigo = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
+        labelPreco = new javax.swing.JLabel();
+        labelEspecificacao = new javax.swing.JLabel();
         txtFieldCodigo = new javax.swing.JTextField();
         txtFieldNome = new javax.swing.JTextField();
         txtFieldPreco = new javax.swing.JTextField();
@@ -74,24 +83,27 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         buttonNovaEspecificacao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        buttonCadastrar = new javax.swing.JButton();
+        buttonSalvar = new javax.swing.JButton();
         buttonEditar = new javax.swing.JButton();
         buttonRemover = new javax.swing.JButton();
+        barraDeMenu = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenu();
+        menuItemPortuguese = new javax.swing.JMenuItem();
+        menuItemEnglish = new javax.swing.JMenuItem();
+        menuItemSpanish = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Produtos");
+        labelPrincipal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelPrincipal.setText("Produtos");
 
-        jLabel2.setText("código");
+        labelCodigo.setText("código");
 
-        jLabel3.setText("nome");
+        labelNome.setText("nome");
 
-        jLabel4.setText("preço");
+        labelPreco.setText("preço");
 
-        jLabel5.setText("especificação");
+        labelEspecificacao.setText("especificação");
 
         txtFieldCodigo.setEditable(false);
 
@@ -117,12 +129,10 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableProdutos);
 
-        jLabel6.setText("buscar:");
-
-        buttonCadastrar.setText("salvar");
-        buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        buttonSalvar.setText("salvar");
+        buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCadastrarActionPerformed(evt);
+                buttonSalvarActionPerformed(evt);
             }
         });
 
@@ -140,13 +150,43 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             }
         });
 
+        menu.setText("Language");
+
+        menuItemPortuguese.setText("Portuguese");
+        menuItemPortuguese.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPortugueseActionPerformed(evt);
+            }
+        });
+        menu.add(menuItemPortuguese);
+
+        menuItemEnglish.setText("English");
+        menuItemEnglish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEnglishActionPerformed(evt);
+            }
+        });
+        menu.add(menuItemEnglish);
+
+        menuItemSpanish.setText("Spanish");
+        menuItemSpanish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSpanishActionPerformed(evt);
+            }
+        });
+        menu.add(menuItemSpanish);
+
+        barraDeMenu.add(menu);
+
+        setJMenuBar(barraDeMenu);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(239, 239, 239)
-                .addComponent(jLabel1)
+                .addComponent(labelPrincipal)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -156,17 +196,15 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonCadastrar)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(buttonSalvar)
+                            .addComponent(labelNome)
+                            .addComponent(labelPreco)
+                            .addComponent(labelCodigo)
+                            .addComponent(labelEspecificacao))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4)
                                     .addComponent(txtFieldPreco)
                                     .addComponent(txtFieldNome)
                                     .addGroup(layout.createSequentialGroup()
@@ -185,34 +223,30 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelPrincipal)
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(labelCodigo)
                     .addComponent(txtFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(labelNome)
                     .addComponent(txtFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(labelPreco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(labelEspecificacao)
                     .addComponent(comboBoxEspecificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonNovaEspecificacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCadastrar)
+                    .addComponent(buttonSalvar)
                     .addComponent(buttonEditar)
                     .addComponent(buttonRemover))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(44, 44, 44)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75))
         );
@@ -225,7 +259,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         e.setVisible(true);
     }//GEN-LAST:event_buttonNovaEspecificacaoActionPerformed
 
-    private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
         // TODO add your handling code here:
         if (txtFieldNome.getText().equals("") || txtFieldPreco.getText().equals("")
                 || comboBoxEspecificacao.getSelectedIndex() == 0) {
@@ -270,7 +304,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         }
         recarregar();
 
-    }//GEN-LAST:event_buttonCadastrarActionPerformed
+    }//GEN-LAST:event_buttonSalvarActionPerformed
 
     private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverActionPerformed
         // TODO add your handling code here:
@@ -296,6 +330,21 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro" + e.getMessage());
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
+
+    private void menuItemPortugueseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPortugueseActionPerformed
+        MensagensUtil.setLocale(MensagensUtil.PT_BR);
+        preencherStringsNoIdioma();
+    }//GEN-LAST:event_menuItemPortugueseActionPerformed
+
+    private void menuItemEnglishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEnglishActionPerformed
+        MensagensUtil.setLocale(MensagensUtil.EN_US);
+        preencherStringsNoIdioma();
+    }//GEN-LAST:event_menuItemEnglishActionPerformed
+
+    private void menuItemSpanishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSpanishActionPerformed
+        MensagensUtil.setLocale(MensagensUtil.ES_ES);
+        preencherStringsNoIdioma();
+    }//GEN-LAST:event_menuItemSpanishActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,20 +382,23 @@ public class ProdutosJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCadastrar;
+    private javax.swing.JMenuBar barraDeMenu;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonNovaEspecificacao;
     private javax.swing.JButton buttonRemover;
+    private javax.swing.JButton buttonSalvar;
     private javax.swing.JComboBox<String> comboBoxEspecificacao;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProdutos;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel labelEspecificacao;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JLabel labelPrincipal;
+    private javax.swing.JMenu menu;
+    private javax.swing.JMenuItem menuItemEnglish;
+    private javax.swing.JMenuItem menuItemPortuguese;
+    private javax.swing.JMenuItem menuItemSpanish;
     private javax.swing.JTextField txtFieldCodigo;
     private javax.swing.JTextField txtFieldNome;
     private javax.swing.JTextField txtFieldPreco;

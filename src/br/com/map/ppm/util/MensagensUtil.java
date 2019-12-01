@@ -18,11 +18,13 @@ public class MensagensUtil {
     public static final Locale EN_US = new Locale("en", "US");
     public static final Locale ES_ES = new Locale("es", "ES");
     
-    private static ResourceBundle resource = ResourceBundle.getBundle("mensagens", PT_BR);
+    private static ResourceBundle resource = ResourceBundle.getBundle("br/com/map/ppm/properties/mensagens", PT_BR);
     
-
+    //mensagens validação
     public static final String MSG_VALIDACAO_CAMPOS_VAZIOS = "msg.validacao.camposvazios";
+    public static final String MSG_ERRO_SELECIONAR_CLIENTE = "msg.erro.selecionar";
     
+    //mensagens banco de dados
     public static final String MSG_ERRO_CONEXAO_BANCO = "msg.erro.conexaobanco";
     public static final String MSG_ERRO_DAO_CRIAR_ESPECIFICACAO = "msg.erro.dao.criar.especificacao";
     public static final String MSG_ERRO_DAO_CRIAR_PRODUTO = "msg.erro.dao.criar.produto";
@@ -31,21 +33,35 @@ public class MensagensUtil {
     public static final String MSG_ERRO_DAO_REMOVER_PRODUTO = "msg.erro.dao.remover.produto";
     public static final String MSG_ERRO_DAO_REMOVER_ESPECIFICACAO = "msg.erro.dao.remover.especificacao";
 
-    public static final String MSG_ERRO_SELECIONAR = "msg.erro.selecionar";
-    public static final String MSG_ERRO_CONSULTAR = "msg.erro.consultar ";
-    public static final String MSG_LABEL_NOME  = "msg.label.nome";
-    public static final String MSG_BUTTON_SALVAR = "msg.button.salvar";
-    public static final String MSG_BUTTON_CANCELAR = "msg.button.cancelar";
-    public static final String MSG_BUTTON_NOVO = "msg.button.novo";
+    //mensagens botões, labels e outros componentes gráficos
+    public static final String MSG_LABEL_ESPECIFICACAO_PRINCIPAL = "msg.label.especificacao.principal";
+    public static final String MSG_LABEL_ESPECIFICACAO_CODIGO = "msg.label.especificacao.codigo";
+    public static final String MSG_LABEL_ESPECIFICACAO_FABRICANTE = "msg.label.especificacao.fabricante";
+    public static final String MSG_LABEL_ESPECIFICACAO_COR = "msg.label.especificacao.cor";
+    public static final String MSG_LABEL_ESPECIFICACAO_SISTEMA = "msg.label.especificacao.sistema";
+    public static final String MSG_LABEL_ESPECIFICACAO_DETALHES = "msg.label.especificacao.detalhes";
+    public static final String MSG_BUTTON_ESPECIFICACAO_CONFIRMAR = "msg.button.especificacao.confirmar";
+    public static final String MSG_BUTTON_ESPECIFICACAO_CANCELAR = "msg.button.especificacao.cancelar";
+    public static final String MSG_LABEL_PRODUTOS_PRINCIPAL = "msg.label.produtos.principal";
+    public static final String MSG_LABEL_PRODUTOS_CODIGO = "msg.label.produtos.codigo";
+    public static final String MSG_LABEL_PRODUTOS_NOME = "msg.label.produtos.nome";
+    public static final String MSG_LABEL_PRODUTOS_PRECO = "msg.label.produtos.preco";
+    public static final String MSG_LABEL_PRODUTOS_ESPECIFICACAO = "msg.label.produtos.especificacao";
+    public static final String MSG_BUTTON_PRODUTOS_CRIARESPECIFICACAO = "msg.button.produtos.novaespecificacao";
+    public static final String MSG_BUTTON_PRODUTOS_SALVAR = "msg.button.produtos.salvar";
+    public static final String MSG_BUTTON_PRODUTOS_EDITAR = "msg.button.produtos.editar";
+    public static final String MSG_BUTTON_PRODUTOS_REMOVER = "msg.button.produtos.remover";
     public static final String MSG_TABELA_CODIGO = "msg.tabela.codigo";
     public static final String MSG_TABELA_NOME = "msg.tabela.nome";
-    public static final String MSG_TABELA_EMAIL = "msg.tabela.email";
+    public static final String MSG_TABELA_PRECO = "msg.tabela.preco";
+    public static final String MSG_TABELA_ESPECIFICACAO = "msg.tabela.especificacao";
+    
     
     public static String getMensagem(String key){
         return resource.getString(key);
     }
     
     public static void setLocale(Locale local){
-        resource = ResourceBundle.getBundle("mensagens", local);
+        resource = ResourceBundle.getBundle("br/com/map/ppm/properties/mensagens", local);
     }
 }

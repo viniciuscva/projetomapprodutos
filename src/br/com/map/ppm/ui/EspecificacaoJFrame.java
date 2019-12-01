@@ -3,6 +3,7 @@ package br.com.map.ppm.ui;
 
 import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
+import br.com.map.ppm.util.MensagensUtil;
 import javax.swing.JOptionPane;
 
 
@@ -12,8 +13,21 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
     
     public EspecificacaoJFrame(ProdutosJFrame parent) {
         this.parent = parent;
+        parent.disable();
         initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        preencherStringsNoIdioma();
+    }
+    
+    public void preencherStringsNoIdioma(){
+        labelPrincipal.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_PRINCIPAL));
+        labelCodigo.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_CODIGO));
+        labelFabricante.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_FABRICANTE));
+        labelCor.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_COR));
+        labelSistema.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_SISTEMA));
+        labelDetalhes.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_DETALHES));
+        buttonConfirmar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_ESPECIFICACAO_CONFIRMAR));
+        buttonCancelar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_ESPECIFICACAO_CANCELAR));
     }
 
     
@@ -21,12 +35,12 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        labelPrincipal = new javax.swing.JLabel();
+        labelFabricante = new javax.swing.JLabel();
+        labelCodigo = new javax.swing.JLabel();
+        labelCor = new javax.swing.JLabel();
+        labelSistema = new javax.swing.JLabel();
+        labelDetalhes = new javax.swing.JLabel();
         txtFieldCodigo = new javax.swing.JTextField();
         txtFieldFabricante = new javax.swing.JTextField();
         txtFieldCor = new javax.swing.JTextField();
@@ -37,18 +51,18 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Especificação");
+        labelPrincipal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelPrincipal.setText("Especificação");
 
-        jLabel2.setText("fabricante");
+        labelFabricante.setText("fabricante");
 
-        jLabel3.setText("código");
+        labelCodigo.setText("código");
 
-        jLabel4.setText("cor");
+        labelCor.setText("cor");
 
-        jLabel5.setText("sistema");
+        labelSistema.setText("sistema");
 
-        jLabel6.setText("detalhes");
+        labelDetalhes.setText("detalhes");
 
         txtFieldCodigo.setEditable(false);
 
@@ -75,12 +89,12 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
+                            .addComponent(labelCodigo)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(labelFabricante)
+                                .addComponent(labelCor, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(labelSistema, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(labelDetalhes, javax.swing.GroupLayout.Alignment.TRAILING)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -93,7 +107,7 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancelar))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelPrincipal)
                         .addGap(27, 27, 27)))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
@@ -101,26 +115,26 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelPrincipal)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(labelCodigo)
                     .addComponent(txtFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(labelFabricante)
                     .addComponent(txtFieldFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(labelCor)
                     .addComponent(txtFieldCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(labelSistema)
                     .addComponent(txtFieldSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(labelDetalhes)
                     .addComponent(txtFieldDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -145,10 +159,12 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         esp.setDetalhes(txtFieldDetalhes.getText());
         new EspecificacaoDao().criar(esp);
         parent.recarregarComboboxEspecificacoes();
+        parent.enable();
         this.dispose();
     }//GEN-LAST:event_buttonConfirmarActionPerformed
 
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        parent.enable();
         this.dispose();
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
@@ -188,12 +204,12 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonConfirmar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel labelCor;
+    private javax.swing.JLabel labelDetalhes;
+    private javax.swing.JLabel labelFabricante;
+    private javax.swing.JLabel labelPrincipal;
+    private javax.swing.JLabel labelSistema;
     private javax.swing.JTextField txtFieldCodigo;
     private javax.swing.JTextField txtFieldCor;
     private javax.swing.JTextField txtFieldDetalhes;
