@@ -39,18 +39,18 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         //carregar combobox especificacoes
         recarregarComboboxEspecificacoes();
         jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_CODIGO), 
-                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_NOME), 
-                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_PRECO), 
-                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_ESPECIFICACAO) 
-            }
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_CODIGO),
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_NOME),
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_PRECO),
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_ESPECIFICACAO)
+                }
         ));
         TableModel modeloTabela = jTableProdutos.getModel();
         int numeroLinhas = modeloTabela.getRowCount();
@@ -69,8 +69,8 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             modeloTabela.setValueAt(listaProdutos.get(i).getEspecificacao().toString(), i, 3);
         }
     }
-    
-    public void preencherStringsNoIdioma(){
+
+    public void preencherStringsNoIdioma() {
         labelPrincipal.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_PRINCIPAL));
         labelCodigo.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_CODIGO));
         labelNome.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_PRODUTOS_NOME));
@@ -281,7 +281,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                 || comboBoxEspecificacao.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(
                     this,
-                    MensagensUtil.getMensagem(MensagensUtil.MSG_VALIDACAO_CAMPOS_VAZIOS), 
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_VALIDACAO_CAMPOS_VAZIOS),
                     MensagensUtil.getMensagem(MensagensUtil.MSG_ATENCAO),
                     JOptionPane.WARNING_MESSAGE);
             return;
@@ -310,7 +310,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             try {
                 new ProdutoDao().criar(prod);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, 
+                JOptionPane.showMessageDialog(this,
                         MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_ENTRADAS_INVALIDAS));
                 return;
             }
@@ -318,8 +318,8 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             try {
                 new ProdutoDao().editarProduto(prod);
             } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this, 
-                        MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_ENTRADAS_INVALIDAS));                
+                JOptionPane.showMessageDialog(this,
+                        MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_ENTRADAS_INVALIDAS));
                 return;
             }
             prodSelecionado = null;
@@ -332,6 +332,10 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         TableModel modeloTabela = jTableProdutos.getModel();
         int linhaSelecionada = jTableProdutos.getSelectedRow();
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_SELECIONAR_PRODUTO));
+            return;
+        }
         int codigo = (Integer) modeloTabela.getValueAt(linhaSelecionada, 0);
         //System.out.println("olha eu");
         new ProdutoDao().removerPorCodigo(codigo);
@@ -342,6 +346,10 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         TableModel modeloTabea = jTableProdutos.getModel();
         try {
             int row = jTableProdutos.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_SELECIONAR_PRODUTO));
+                return;
+            }
             prodSelecionado = listaProdutos.get(row);
             txtFieldCodigo.setText(prodSelecionado.getCodigo() + "");
             txtFieldNome.setText(prodSelecionado.getNome());
