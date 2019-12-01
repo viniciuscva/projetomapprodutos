@@ -23,6 +23,9 @@ public class MensagensUtil {
     //mensagens validação
     public static final String MSG_VALIDACAO_CAMPOS_VAZIOS = "msg.validacao.camposvazios";
     public static final String MSG_ERRO_SELECIONAR_CLIENTE = "msg.erro.selecionar";
+    public static final String MSG_ATENCAO = "msg.atencao";
+    public static final String MSG_PRECO_INVALIDO = "msg.preco.invalido";
+    public static final String MSG_ERRO_ENTRADAS_INVALIDAS = "msg.erro.entradas.invalidas";
     
     //mensagens banco de dados
     public static final String MSG_ERRO_CONEXAO_BANCO = "msg.erro.conexaobanco";

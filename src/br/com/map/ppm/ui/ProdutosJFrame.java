@@ -20,6 +20,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
     public ProdutosJFrame() {
         initComponents();
         recarregar();
+        preencherStringsNoIdioma();
     }
 
     public void recarregarComboboxEspecificacoes() {
@@ -37,6 +38,20 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         txtFieldPreco.setText("");
         //carregar combobox especificacoes
         recarregarComboboxEspecificacoes();
+        jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_CODIGO), 
+                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_NOME), 
+                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_PRECO), 
+                MensagensUtil.getMensagem(MensagensUtil.MSG_TABELA_ESPECIFICACAO) 
+            }
+        ));
         TableModel modeloTabela = jTableProdutos.getModel();
         int numeroLinhas = modeloTabela.getRowCount();
         for (int i = 0; i < numeroLinhas; i++) {
@@ -65,6 +80,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         buttonSalvar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_SALVAR));
         buttonEditar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_EDITAR));
         buttonRemover.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_REMOVER));
+        recarregar();
     }
 
     @SuppressWarnings("unchecked")
@@ -263,7 +279,11 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txtFieldNome.getText().equals("") || txtFieldPreco.getText().equals("")
                 || comboBoxEspecificacao.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Campos vazios", "Atenção", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    this,
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_VALIDACAO_CAMPOS_VAZIOS), 
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_ATENCAO),
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
         Produto prod = (prodSelecionado == null) ? new Produto() : prodSelecionado;
@@ -272,7 +292,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         try {
             preco = Double.parseDouble(txtFieldPreco.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Entradas inválidas.");
+            JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MSG_PRECO_INVALIDO));
             return;
         }
         prod.setPreco(preco);
@@ -290,14 +310,16 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             try {
                 new ProdutoDao().criar(prod);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Entradas inválidas.");
+                JOptionPane.showMessageDialog(this, 
+                        MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_ENTRADAS_INVALIDAS));
                 return;
             }
         } else {
             try {
                 new ProdutoDao().editarProduto(prod);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Entradas inválidas.");
+                    JOptionPane.showMessageDialog(this, 
+                        MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_ENTRADAS_INVALIDAS));                
                 return;
             }
             prodSelecionado = null;
@@ -311,7 +333,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         TableModel modeloTabela = jTableProdutos.getModel();
         int linhaSelecionada = jTableProdutos.getSelectedRow();
         int codigo = (Integer) modeloTabela.getValueAt(linhaSelecionada, 0);
-        System.out.println("olha eu");
+        //System.out.println("olha eu");
         new ProdutoDao().removerPorCodigo(codigo);
         recarregar();
     }//GEN-LAST:event_buttonRemoverActionPerformed
@@ -327,7 +349,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             comboBoxEspecificacao.setSelectedItem(prodSelecionado.getEspecificacao().toString());
 
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(this, "Erro" + e.getMessage());
+            //JOptionPane.showMessageDialog(this, "Erro" + e.getMessage());
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
 

@@ -3,7 +3,10 @@ package br.com.map.ppm.model.bean.factory;
 
 import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 //ESTA CLASSE NAO É MAIS ÚTIL POIS AGORA É COM GUI
@@ -20,7 +23,12 @@ public class EspecificacaoFactory {
         System.out.println("Digite os detalhes da especificação:");
         esp.setDetalhes(input.nextLine());
         EspecificacaoDao  espDao = new EspecificacaoDao();
-        int codigo = espDao.criar(esp);
+        int codigo=-1;
+        try {
+            codigo = espDao.criar(esp);
+        } catch (SQLException ex) {
+            Logger.getLogger(EspecificacaoFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
         esp.setCodigo(codigo);
         System.out.println("Especificação criada no banco de dados. Código: "+codigo);
         return esp;

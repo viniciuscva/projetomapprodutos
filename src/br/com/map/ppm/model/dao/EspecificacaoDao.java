@@ -20,7 +20,7 @@ import java.util.List;
  * @author Vinicius_2
  */
 public class EspecificacaoDao {
-    public int criar(Especificacao esp){
+    public int criar(Especificacao esp)throws SQLException{
         Connection conexao = ConnectionFactory.getConnection();
         int codigo = -1;
         try {
@@ -41,7 +41,8 @@ public class EspecificacaoDao {
             conexao.close();
         } catch (SQLException ex) {
             //System.out.println("Erro ao persistir a especificação.");
-            System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_CRIAR_ESPECIFICACAO));
+            //System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_CRIAR_ESPECIFICACAO));
+            throw new SQLException(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_CRIAR_ESPECIFICACAO));
         } finally{
             return codigo;
         }

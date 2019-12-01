@@ -1,16 +1,15 @@
-
 package br.com.map.ppm.ui;
 
 import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
 import br.com.map.ppm.util.MensagensUtil;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
 
 public class EspecificacaoJFrame extends javax.swing.JFrame {
 
     ProdutosJFrame parent;
-    
+
     public EspecificacaoJFrame(ProdutosJFrame parent) {
         this.parent = parent;
         parent.disable();
@@ -18,8 +17,8 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         preencherStringsNoIdioma();
     }
-    
-    public void preencherStringsNoIdioma(){
+
+    public void preencherStringsNoIdioma() {
         labelPrincipal.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_PRINCIPAL));
         labelCodigo.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_CODIGO));
         labelFabricante.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_LABEL_ESPECIFICACAO_FABRICANTE));
@@ -30,7 +29,6 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         buttonCancelar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_ESPECIFICACAO_CANCELAR));
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,9 +145,12 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarActionPerformed
-        if(txtFieldCor.getText().equals("")||txtFieldDetalhes.getText().equals("")||
-                txtFieldFabricante.getText().equals("")||txtFieldSistema.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Campos vazios", "Atenção", JOptionPane.WARNING_MESSAGE);
+        if (txtFieldCor.getText().equals("") || txtFieldDetalhes.getText().equals("")
+                || txtFieldFabricante.getText().equals("") || txtFieldSistema.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_VALIDACAO_CAMPOS_VAZIOS),
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_ATENCAO),
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
         Especificacao esp = new Especificacao();
@@ -157,7 +158,14 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         esp.setCor(txtFieldCor.getText());
         esp.setSistema(txtFieldSistema.getText());
         esp.setDetalhes(txtFieldDetalhes.getText());
-        new EspecificacaoDao().criar(esp);
+
+        try {
+            new EspecificacaoDao().criar(esp);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this,
+                    MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_ENTRADAS_INVALIDAS));
+            return;
+        }
         parent.recarregarComboboxEspecificacoes();
         parent.enable();
         this.dispose();
@@ -168,14 +176,13 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
-    
-   // public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    // public static void main(String args[]) {
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-  /*      try {
+     */
+ /*      try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -191,15 +198,15 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EspecificacaoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }*/
-        //</editor-fold>
+    //</editor-fold>
 
-        /* Create and display the form */
-     //   java.awt.EventQueue.invokeLater(new Runnable() {
+    /* Create and display the form */
+    //   java.awt.EventQueue.invokeLater(new Runnable() {
     //        public void run() {
-   //             new EspecificacaoJFrame().setVisible(true);
-  //          }
-  //      });*/
- //   }
+    //             new EspecificacaoJFrame().setVisible(true);
+    //          }
+    //      });*/
+    //   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
