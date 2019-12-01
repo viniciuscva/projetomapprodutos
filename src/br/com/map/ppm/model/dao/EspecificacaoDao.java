@@ -7,6 +7,7 @@ package br.com.map.ppm.model.dao;
 
 import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.connectionfactory.ConnectionFactory;
+import br.com.map.ppm.util.MensagensUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,8 @@ public class EspecificacaoDao {
             pst.close();
             conexao.close();
         } catch (SQLException ex) {
-            System.out.println("Erro ao persistir a especificação.");
+            //System.out.println("Erro ao persistir a especificação.");
+            System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_CRIAR_ESPECIFICACAO));
         } finally{
             return codigo;
         }
@@ -62,7 +64,8 @@ public class EspecificacaoDao {
                 esp.setDetalhes(rs.getString("detalhes"));
             }
         } catch (SQLException ex) {
-            System.out.println("Erro na busca por código.");
+           // System.out.println("Erro na busca por código.");
+            System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_BUSCAR_ESPECIFICACAO));
         }
         return esp;
     }
@@ -84,7 +87,9 @@ public class EspecificacaoDao {
                 lista.add(esp);
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao buscar lista de produtos no banco de dados.");
+            //System.out.println("Erro ao buscar lista de especificacoes no banco de dados
+            System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_BUSCAR_ESPECIFICACAO));
+
         }
         return lista;
     }

@@ -7,6 +7,7 @@ package br.com.map.ppm.model.dao;
 
 import br.com.map.ppm.model.bean.Produto;
 import br.com.map.ppm.model.connectionfactory.ConnectionFactory;
+import br.com.map.ppm.util.MensagensUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +36,7 @@ public class ProdutoDao {
                 codigo = rs.getInt(1);
             }
         } catch(SQLException e){
-            throw new SQLException("Erro ao persistir produto.");
+            throw new SQLException(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_CRIAR_PRODUTO));
             //System.out.println("Erro ao persistir o produto.");
         } 
         return codigo;
@@ -58,7 +59,8 @@ public class ProdutoDao {
                 listaProdutos.add(prod);
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao buscar lista de produtos no banco de dados.");
+           // System.out.println("Erro ao buscar lista de produtos no banco de dados.");
+            System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_BUSCAR_PRODUTO));
         }
         return listaProdutos;
     }
@@ -75,9 +77,8 @@ public class ProdutoDao {
             pst.setInt(3, prod.getEspecificacao().getCodigo());
             pst.setInt(4, prod.getCodigo());
             pst.executeUpdate();
-            System.out.println("Produto editado com sucesso.");
         } catch (SQLException ex) {
-            throw new SQLException("Erro ao persistir.");
+            throw new SQLException(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_CRIAR_PRODUTO));
         }
     }
     
@@ -94,7 +95,8 @@ public class ProdutoDao {
             pst2.executeUpdate();
             System.out.println("OK.");
         } catch (SQLException ex) {
-            System.out.println("Erro ao deletar produto do banco de dados.");
+            //System.out.println("Erro ao deletar produto do banco de dados.");
+            System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_REMOVER_PRODUTO));
         }
     }
     
@@ -118,7 +120,9 @@ public class ProdutoDao {
             pst3.setInt(1, codigoEspecificacao);
             pst3.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Erro ao deletar produto do banco de dados.");
+           // System.out.println("Erro ao deletar produto do banco de dados.");
+           System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_REMOVER_PRODUTO));
+
         }
     }
     
@@ -138,7 +142,9 @@ public class ProdutoDao {
                         buscarPorCodigo(rs.getInt("especificacao")));
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao consultar produto por código no banco de dados.");
+           // System.out.println("Erro ao consultar produto por código no banco de dados.");
+           System.out.println(MensagensUtil.getMensagem(MensagensUtil.MSG_ERRO_DAO_BUSCAR_PRODUTO));
+
         }
         return produto;
     }

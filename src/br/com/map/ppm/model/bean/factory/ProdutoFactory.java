@@ -17,6 +17,8 @@ import java.util.logging.Logger;
  *
  * @author Vinicius_2
  */
+
+//ESSA CLASSE NÃO É MAIS ÚTIL POIS AGORA É COM GUI
 public class ProdutoFactory {
     public static Produto criarNovoProduto(){
         Scanner input = new Scanner(System.in);
@@ -54,6 +56,10 @@ public class ProdutoFactory {
         if(prod.getEspecificacao()==null)
             System.out.println("Especificação não ficou definida.");
         ProdutoDao prodDao = new ProdutoDao();
-        prodDao.editarProduto(prod);
+        try {
+            prodDao.editarProduto(prod);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

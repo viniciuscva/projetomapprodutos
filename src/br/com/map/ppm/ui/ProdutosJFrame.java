@@ -20,8 +20,8 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         initComponents();
         recarregar();
     }
-    
-    public void recarregarComboboxEspecificacoes(){
+
+    public void recarregarComboboxEspecificacoes() {
         comboBoxEspecificacao.removeAllItems();
         List<Especificacao> especificacoes = new EspecificacaoDao().obterEspecificacoes();
         comboBoxEspecificacao.addItem(" ");
@@ -52,6 +52,10 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             modeloTabela.setValueAt(listaProdutos.get(i).getPreco(), i, 2);
             modeloTabela.setValueAt(listaProdutos.get(i).getEspecificacao().toString(), i, 3);
         }
+    }
+    
+    public void atualizarStringsNoIdioma(){
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -228,9 +232,16 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Campos vazios", "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Produto prod = (prodSelecionado==null)? new Produto():prodSelecionado;
+        Produto prod = (prodSelecionado == null) ? new Produto() : prodSelecionado;
         prod.setNome(txtFieldNome.getText());
-        prod.setPreco(Double.parseDouble(txtFieldPreco.getText()));
+        double preco = -1;
+        try {
+            preco = Double.parseDouble(txtFieldPreco.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Entradas inválidas.");
+            return;
+        }
+        prod.setPreco(preco);
         String especificacaoString = (String) comboBoxEspecificacao.getSelectedItem();
         String[] array = especificacaoString.split(" | ");
         Especificacao esp = new Especificacao();
@@ -240,16 +251,15 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         esp.setSistema(array[3]);
         esp.setDetalhes(array[4]);
         prod.setEspecificacao(esp);
-        if(prodSelecionado==null){ 
-            
+        if (prodSelecionado == null) {
+
             try {
                 new ProdutoDao().criar(prod);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Entradas inválidas.");
                 return;
             }
-        }
-        else{
+        } else {
             try {
                 new ProdutoDao().editarProduto(prod);
             } catch (SQLException ex) {
@@ -277,13 +287,13 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         try {
             int row = jTableProdutos.getSelectedRow();
             prodSelecionado = listaProdutos.get(row);
-            txtFieldCodigo.setText(prodSelecionado.getCodigo()+"");
+            txtFieldCodigo.setText(prodSelecionado.getCodigo() + "");
             txtFieldNome.setText(prodSelecionado.getNome());
-            txtFieldPreco.setText(prodSelecionado.getPreco()+"");
+            txtFieldPreco.setText(prodSelecionado.getPreco() + "");
             comboBoxEspecificacao.setSelectedItem(prodSelecionado.getEspecificacao().toString());
-            
+
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(this, "Erro"+e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro" + e.getMessage());
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
 

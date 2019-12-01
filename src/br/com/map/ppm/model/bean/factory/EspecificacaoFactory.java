@@ -5,6 +5,8 @@ import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
 import java.util.Scanner;
 
+
+//ESTA CLASSE NAO É MAIS ÚTIL POIS AGORA É COM GUI
 public class EspecificacaoFactory {
     public static Especificacao criarNovaEspecificacao(){
         Scanner input = new Scanner(System.in);

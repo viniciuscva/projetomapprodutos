@@ -17,5 +17,7 @@ create table tbproduto(
 	check(preco>0),
 	foreign key (especificacao) references tbespecificacao(codigo)
 );
+
+alter table tbproduto add constraint preco_positivo check (preco>0);
 select * from tbespecificacao;
 select * from tbproduto;
