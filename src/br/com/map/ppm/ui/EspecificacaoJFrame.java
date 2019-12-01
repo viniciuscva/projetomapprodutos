@@ -144,7 +144,7 @@ public class EspecificacaoJFrame extends javax.swing.JFrame {
         esp.setSistema(txtFieldSistema.getText());
         esp.setDetalhes(txtFieldDetalhes.getText());
         new EspecificacaoDao().criar(esp);
-        parent.recarregar();
+        parent.recarregarComboboxEspecificacoes();
         this.dispose();
     }//GEN-LAST:event_buttonConfirmarActionPerformed
 

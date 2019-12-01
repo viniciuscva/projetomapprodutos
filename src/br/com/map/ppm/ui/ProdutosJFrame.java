@@ -4,42 +4,53 @@ import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.bean.Produto;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
 import br.com.map.ppm.model.dao.ProdutoDao;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
 public class ProdutosJFrame extends javax.swing.JFrame {
 
+    List<Produto> listaProdutos;
+    Produto prodSelecionado;
+
     public ProdutosJFrame() {
         initComponents();
         recarregar();
+    }
+    
+    public void recarregarComboboxEspecificacoes(){
+        comboBoxEspecificacao.removeAllItems();
+        List<Especificacao> especificacoes = new EspecificacaoDao().obterEspecificacoes();
+        comboBoxEspecificacao.addItem(" ");
+        for (Especificacao e : especificacoes) {
+            comboBoxEspecificacao.addItem(e.toString());
+        }
     }
 
     public void recarregar() {
         txtFieldCodigo.setText("");
         txtFieldNome.setText("");
         txtFieldPreco.setText("");
-        comboBoxEspecificacao.removeAllItems();
-        List<Especificacao> especificacoes = new EspecificacaoDao().obterEspecificacoes();
-        comboBoxEspecificacao.addItem(" ");
-        for(Especificacao e: especificacoes){
-            comboBoxEspecificacao.addItem(e.toString());
-        }
+        //carregar combobox especificacoes
+        recarregarComboboxEspecificacoes();
         TableModel modeloTabela = jTableProdutos.getModel();
         int numeroLinhas = modeloTabela.getRowCount();
-        for(int i=0; i< numeroLinhas; i++){
+        for (int i = 0; i < numeroLinhas; i++) {
             modeloTabela.setValueAt("", i, 0);
             modeloTabela.setValueAt("", i, 1);
             modeloTabela.setValueAt("", i, 2);
             modeloTabela.setValueAt("", i, 3);
         }
-        
-        List<Produto> lista = new ProdutoDao().obterProdutos();
-        for (int i = 0; i < lista.size(); i++) {
-            modeloTabela.setValueAt(lista.get(i).getCodigo(), i, 0);
-            modeloTabela.setValueAt(lista.get(i).getNome(), i, 1);
-            modeloTabela.setValueAt(lista.get(i).getPreco(), i, 2);
-            modeloTabela.setValueAt(lista.get(i).getEspecificacao().toString(), i, 3);
+
+        listaProdutos = new ProdutoDao().obterProdutos();
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            modeloTabela.setValueAt(listaProdutos.get(i).getCodigo(), i, 0);
+            modeloTabela.setValueAt(listaProdutos.get(i).getNome(), i, 1);
+            modeloTabela.setValueAt(listaProdutos.get(i).getPreco(), i, 2);
+            modeloTabela.setValueAt(listaProdutos.get(i).getEspecificacao().toString(), i, 3);
         }
     }
 
@@ -104,7 +115,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("buscar:");
 
-        buttonCadastrar.setText("cadastrar");
+        buttonCadastrar.setText("salvar");
         buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCadastrarActionPerformed(evt);
@@ -112,6 +123,11 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         });
 
         buttonEditar.setText("editar");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
 
         buttonRemover.setText("remover");
         buttonRemover.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +167,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                                     .addComponent(txtFieldNome)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(comboBoxEspecificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                         .addComponent(buttonNovaEspecificacao))
                                     .addComponent(txtFieldCodigo))
                                 .addGap(83, 83, 83))
@@ -207,15 +223,15 @@ public class ProdutosJFrame extends javax.swing.JFrame {
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         // TODO add your handling code here:
-        if(txtFieldNome.getText().equals("")||txtFieldPreco.getText().equals("")||
-                comboBoxEspecificacao.getSelectedIndex()==0){
+        if (txtFieldNome.getText().equals("") || txtFieldPreco.getText().equals("")
+                || comboBoxEspecificacao.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Campos vazios", "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Produto prod = new Produto();
+        Produto prod = (prodSelecionado==null)? new Produto():prodSelecionado;
         prod.setNome(txtFieldNome.getText());
         prod.setPreco(Double.parseDouble(txtFieldPreco.getText()));
-        String especificacaoString = (String)comboBoxEspecificacao.getSelectedItem();
+        String especificacaoString = (String) comboBoxEspecificacao.getSelectedItem();
         String[] array = especificacaoString.split(" | ");
         Especificacao esp = new Especificacao();
         esp.setCodigo(Integer.parseInt(array[0]));
@@ -224,20 +240,52 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         esp.setSistema(array[3]);
         esp.setDetalhes(array[4]);
         prod.setEspecificacao(esp);
-        new ProdutoDao().criar(prod);
+        if(prodSelecionado==null){ 
+            
+            try {
+                new ProdutoDao().criar(prod);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Entradas inválidas.");
+                return;
+            }
+        }
+        else{
+            try {
+                new ProdutoDao().editarProduto(prod);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Entradas inválidas.");
+                return;
+            }
+            prodSelecionado = null;
+        }
         recarregar();
-        
+
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverActionPerformed
         // TODO add your handling code here:
         TableModel modeloTabela = jTableProdutos.getModel();
         int linhaSelecionada = jTableProdutos.getSelectedRow();
-        int codigo = (Integer)modeloTabela.getValueAt(linhaSelecionada, 0);
+        int codigo = (Integer) modeloTabela.getValueAt(linhaSelecionada, 0);
         System.out.println("olha eu");
         new ProdutoDao().removerPorCodigo(codigo);
         recarregar();
     }//GEN-LAST:event_buttonRemoverActionPerformed
+
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        TableModel modeloTabea = jTableProdutos.getModel();
+        try {
+            int row = jTableProdutos.getSelectedRow();
+            prodSelecionado = listaProdutos.get(row);
+            txtFieldCodigo.setText(prodSelecionado.getCodigo()+"");
+            txtFieldNome.setText(prodSelecionado.getNome());
+            txtFieldPreco.setText(prodSelecionado.getPreco()+"");
+            comboBoxEspecificacao.setSelectedItem(prodSelecionado.getEspecificacao().toString());
+            
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Erro"+e.getMessage());
+        }
+    }//GEN-LAST:event_buttonEditarActionPerformed
 
     /**
      * @param args the command line arguments

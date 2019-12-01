@@ -8,7 +8,10 @@ package br.com.map.ppm.model.bean.factory;
 import br.com.map.ppm.model.bean.Produto;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
 import br.com.map.ppm.model.dao.ProdutoDao;
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +31,12 @@ public class ProdutoFactory {
         if(prod.getEspecificacao()==null)
             System.out.println("Especificação não ficou definida.");
         ProdutoDao prodDao = new ProdutoDao();
-        int codigo = prodDao.criar(prod);
+        int codigo = -1;
+        try {
+            codigo = prodDao.criar(prod);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
         prod.setCodigo(codigo);
         System.out.println("Produto criado no banco de dados. Código:"+codigo);
         return prod;

@@ -19,7 +19,7 @@ import java.util.List;
  * @author Vinicius_2
  */
 public class ProdutoDao {
-    public int criar(Produto prod){
+    public int criar(Produto prod) throws SQLException{
         Connection conexao = ConnectionFactory.getConnection();
         int codigo = -1;
         try{
@@ -35,7 +35,8 @@ public class ProdutoDao {
                 codigo = rs.getInt(1);
             }
         } catch(SQLException e){
-            System.out.println("Erro ao persistir o produto.");
+            throw new SQLException("Erro ao persistir produto.");
+            //System.out.println("Erro ao persistir o produto.");
         } 
         return codigo;
     }
@@ -62,7 +63,7 @@ public class ProdutoDao {
         return listaProdutos;
     }
     
-    public void editarProduto(Produto prod){
+    public void editarProduto(Produto prod) throws SQLException{
         //seta os dados de prod em cima da linha do banco de dados que possui
         //o código igual ao código de prod
         Connection conexao = ConnectionFactory.getConnection();
@@ -76,7 +77,7 @@ public class ProdutoDao {
             pst.executeUpdate();
             System.out.println("Produto editado com sucesso.");
         } catch (SQLException ex) {
-            System.out.println("Erro ao editar produto no banco de dados.");
+            throw new SQLException("Erro ao persistir.");
         }
     }
     
