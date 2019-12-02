@@ -4,8 +4,10 @@ import br.com.map.ppm.model.bean.Especificacao;
 import br.com.map.ppm.model.bean.Produto;
 import br.com.map.ppm.model.dao.EspecificacaoDao;
 import br.com.map.ppm.model.dao.ProdutoDao;
+import br.com.map.ppm.relatorios.RelatorioProdutos;
 import br.com.map.ppm.util.MensagensUtil;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,6 +89,8 @@ public class ProdutosJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         labelPrincipal = new javax.swing.JLabel();
         labelCodigo = new javax.swing.JLabel();
         labelNome = new javax.swing.JLabel();
@@ -103,10 +107,17 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         buttonEditar = new javax.swing.JButton();
         buttonRemover = new javax.swing.JButton();
         barraDeMenu = new javax.swing.JMenuBar();
-        menu = new javax.swing.JMenu();
+        menuIdioma = new javax.swing.JMenu();
         menuItemPortuguese = new javax.swing.JMenuItem();
         menuItemEnglish = new javax.swing.JMenuItem();
         menuItemSpanish = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        menuItemRelatorioPrecoMaiorQueMil = new javax.swing.JMenuItem();
+        menuItemRelatorioPrecoMenorQueMil = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
+
+        jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,7 +177,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
             }
         });
 
-        menu.setText("Language");
+        menuIdioma.setText("Language");
 
         menuItemPortuguese.setText("Portuguese");
         menuItemPortuguese.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +185,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                 menuItemPortugueseActionPerformed(evt);
             }
         });
-        menu.add(menuItemPortuguese);
+        menuIdioma.add(menuItemPortuguese);
 
         menuItemEnglish.setText("English");
         menuItemEnglish.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +193,7 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                 menuItemEnglishActionPerformed(evt);
             }
         });
-        menu.add(menuItemEnglish);
+        menuIdioma.add(menuItemEnglish);
 
         menuItemSpanish.setText("Spanish");
         menuItemSpanish.addActionListener(new java.awt.event.ActionListener() {
@@ -190,9 +201,29 @@ public class ProdutosJFrame extends javax.swing.JFrame {
                 menuItemSpanishActionPerformed(evt);
             }
         });
-        menu.add(menuItemSpanish);
+        menuIdioma.add(menuItemSpanish);
 
-        barraDeMenu.add(menu);
+        barraDeMenu.add(menuIdioma);
+
+        menuRelatorios.setText("Relatórios");
+
+        menuItemRelatorioPrecoMaiorQueMil.setText("Produtos com preço superior a $1000,00");
+        menuItemRelatorioPrecoMaiorQueMil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRelatorioPrecoMaiorQueMilActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(menuItemRelatorioPrecoMaiorQueMil);
+
+        menuItemRelatorioPrecoMenorQueMil.setText("Produtos com preço inferior a $1000,00");
+        menuItemRelatorioPrecoMenorQueMil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRelatorioPrecoMenorQueMilActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(menuItemRelatorioPrecoMenorQueMil);
+
+        barraDeMenu.add(menuRelatorios);
 
         setJMenuBar(barraDeMenu);
 
@@ -376,6 +407,44 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         preencherStringsNoIdioma();
     }//GEN-LAST:event_menuItemSpanishActionPerformed
 
+    private void menuItemRelatorioPrecoMaiorQueMilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRelatorioPrecoMaiorQueMilActionPerformed
+        List<Produto> produtosDoRelatorio = selecionarProdutosComPrecoSuperiorAMil();
+        try {
+            new RelatorioProdutos().imprimirProdutosComPrecoMaiorQueMil(produtosDoRelatorio);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_menuItemRelatorioPrecoMaiorQueMilActionPerformed
+
+    private void menuItemRelatorioPrecoMenorQueMilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRelatorioPrecoMenorQueMilActionPerformed
+        List<Produto> produtosDoRelatorio = selecionarProdutosComPrecoInferiorAMil();
+        try {
+            new RelatorioProdutos().imprimirProdutosComPrecoMenorQueMil(produtosDoRelatorio);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_menuItemRelatorioPrecoMenorQueMilActionPerformed
+
+    private List<Produto> selecionarProdutosComPrecoSuperiorAMil(){
+        List<Produto> selecionados = new ArrayList<>();
+        for(Produto prod: listaProdutos){
+            if(prod.getPreco()>=1000){
+                selecionados.add(prod);
+            }
+        }
+        return selecionados;
+    }
+    
+    private List<Produto> selecionarProdutosComPrecoInferiorAMil(){
+        List<Produto> selecionados = new ArrayList<>();
+        for(Produto prod: listaProdutos){
+            if(prod.getPreco()<1000){
+                selecionados.add(prod);
+            }
+        }
+        return selecionados;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -418,6 +487,8 @@ public class ProdutosJFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonRemover;
     private javax.swing.JButton buttonSalvar;
     private javax.swing.JComboBox<String> comboBoxEspecificacao;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProdutos;
     private javax.swing.JLabel labelCodigo;
@@ -425,10 +496,13 @@ public class ProdutosJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPreco;
     private javax.swing.JLabel labelPrincipal;
-    private javax.swing.JMenu menu;
+    private javax.swing.JMenu menuIdioma;
     private javax.swing.JMenuItem menuItemEnglish;
     private javax.swing.JMenuItem menuItemPortuguese;
+    private javax.swing.JMenuItem menuItemRelatorioPrecoMaiorQueMil;
+    private javax.swing.JMenuItem menuItemRelatorioPrecoMenorQueMil;
     private javax.swing.JMenuItem menuItemSpanish;
+    private javax.swing.JMenu menuRelatorios;
     private javax.swing.JTextField txtFieldCodigo;
     private javax.swing.JTextField txtFieldNome;
     private javax.swing.JTextField txtFieldPreco;
