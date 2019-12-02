@@ -58,6 +58,13 @@ public class MensagensUtil {
     public static final String MSG_TABELA_NOME = "msg.tabela.nome";
     public static final String MSG_TABELA_PRECO = "msg.tabela.preco";
     public static final String MSG_TABELA_ESPECIFICACAO = "msg.tabela.especificacao";
+    public static final String MSG_TITULO_JANELA_RELATORIOS = "msg.titulo.janela.relatorios";
+    public static final String MSG_MENU_IDIOMA = "msg.menu.idioma";    
+    public static final String MSG_MENU_RELATORIOS = "msg.menu.relatorios";
+    public static final String MSG_MENUITEM_PRECOMAIORQUEMIL = "msg.menuitem.precomaiorquemil";
+    public static final String MSG_MENUITEM_PRECOMENORQUEMIL = "msg.menuitem.precomenorquemil";
+    
+    
     
     
     public static String getMensagem(String key){

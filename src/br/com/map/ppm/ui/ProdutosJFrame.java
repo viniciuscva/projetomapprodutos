@@ -82,6 +82,10 @@ public class ProdutosJFrame extends javax.swing.JFrame {
         buttonSalvar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_SALVAR));
         buttonEditar.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_EDITAR));
         buttonRemover.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_BUTTON_PRODUTOS_REMOVER));
+        menuIdioma.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_MENU_IDIOMA));
+        menuRelatorios.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_MENU_RELATORIOS));
+        menuItemRelatorioPrecoMaiorQueMil.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_MENUITEM_PRECOMAIORQUEMIL));
+        menuItemRelatorioPrecoMenorQueMil.setText(MensagensUtil.getMensagem(MensagensUtil.MSG_MENUITEM_PRECOMENORQUEMIL));
         recarregar();
     }
 

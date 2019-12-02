@@ -11,6 +11,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import br.com.map.ppm.model.bean.Produto;
+import br.com.map.ppm.util.MensagensUtil;
 import java.util.HashMap;
 import net.sf.jasperreports.view.JasperViewer;
  
@@ -32,12 +33,12 @@ public class RelatorioProdutos{
             JasperReport report = JasperCompileManager.compileReport(
                     this.getPathToReportPackage() + "templateRelatorio1.jrxml");
             HashMap parametros = new HashMap();
-            parametros.put("titulo", "Produtos com preço superior a $ 1000,00");
+            parametros.put("titulo", MensagensUtil.getMensagem(MensagensUtil.MSG_MENUITEM_PRECOMAIORQUEMIL));
             JasperPrint print = JasperFillManager.fillReport(report, parametros, new JRBeanCollectionDataSource(produtos));
             //JasperExportManager.exportReportToPdfFile(print, "c:/RelatoriosProdutos/Relatorio_de_Produtos.pdf");
             JasperViewer jasperViewer = new JasperViewer(print, false);
             jasperViewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
-            jasperViewer.setTitle("Relatório de Produtos");//Cria uma variavel para passar este titulo
+            jasperViewer.setTitle(MensagensUtil.getMensagem(MensagensUtil.MSG_TITULO_JANELA_RELATORIOS));//Cria uma variavel para passar este titulo
             jasperViewer.setVisible(true);
 	}
         
@@ -45,12 +46,12 @@ public class RelatorioProdutos{
             JasperReport report = JasperCompileManager.compileReport(
                     this.getPathToReportPackage() + "templateRelatorio1.jrxml");
             HashMap parametros = new HashMap();
-            parametros.put("titulo", "Produtos com preço inferior a $ 1000,00");
+            parametros.put("titulo", MensagensUtil.getMensagem(MensagensUtil.MSG_MENUITEM_PRECOMENORQUEMIL));
             JasperPrint print = JasperFillManager.fillReport(report, parametros, new JRBeanCollectionDataSource(produtos));
             //JasperExportManager.exportReportToPdfFile(print, "c:/RelatoriosProdutos/Relatorio_de_Produtos.pdf");
             JasperViewer jasperViewer = new JasperViewer(print, false);
             jasperViewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
-            jasperViewer.setTitle("Relatório de Produtos");//Cria uma variavel para passar este titulo
+            jasperViewer.setTitle(MensagensUtil.getMensagem(MensagensUtil.MSG_TITULO_JANELA_RELATORIOS));//Cria uma variavel para passar este titulo
             jasperViewer.setVisible(true);
 	}
  
